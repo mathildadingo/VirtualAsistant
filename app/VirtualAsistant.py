@@ -1,7 +1,7 @@
 # Also installed dependencies: 'pyaudio', 'pyobjc'
 import speech_recognition as sr # pip3 install SpeechRecognition
-from gtts import gTTS #pip3 install gTTS
-from playsound import playsound #pip3 install playsound
+from gtts import gTTS # pip3 install gTTS
+from playsound import playsound # pip3 install playsound
 import random
 import os
 import json
