@@ -1,0 +1,6 @@
+{
+    "ready": "Efendim {}, sana nasıl yardımcı olabilirim?",
+    "shut_down": "Görüşürüz {}, senin için burada olacağım. Kendine iyi bak.",
+    "error_dont_understand": "Anlayamadım {}, bir daha söyler misin?",
+    "error_request_fail": "Bir sorun var {}, lütfen sistemi kontrol et."
+}
