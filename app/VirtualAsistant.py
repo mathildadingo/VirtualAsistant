@@ -2,17 +2,21 @@
 import speech_recognition as sr # pip3 install SpeechRecognition
 from gtts import gTTS # pip3 install gTTS
 from playsound import playsound # pip3 install playsound
+import wikipedia # pip3 install wikipedia
 import random
 import os
 import json
 
 class VirtualAsistant:
 
-    def __init__(self, owner, language):
+    def __init__(self, owner, name, language):
         self.owner = owner
         self.language = language
-        self.listen = False
-        self.name = 'Alexa'
+        self.modes = {
+            "listen": False,
+            "playing": False
+        }
+        self.name = name
 
         import json
         with open(self.language + ".json") as responses:
@@ -31,7 +35,7 @@ class VirtualAsistant:
             self.speak('iyiyim')
         if "kendini kapat" == voice:
             self.speak(self.responseData["shut_down"].format(self.owner))
-            self.listen = False
+            self.modes["listen"] = False
 
     def stt(self):
         recognizer = sr.Recognizer()
@@ -41,19 +45,19 @@ class VirtualAsistant:
             try:
                 voice = recognizer.recognize_google(audio, language=self.language).lower()
                 print(voice) # print voice in terminal for debug
-                if self.listen != True:
+                if self.modes["listen"] != True:
                     if len(voice) == 5 and self.name.lower() in voice:
-                        self.listen = True
+                        self.modes["listen"] = True
                         self.speak(self.responseData["ready"].format(self.owner))
                     else:
                         return
 
             except sr.UnknownValueError:
-                if self.listen:
+                if self.modes["listen"]:
                     self.speak(self.responseData["error_dont_understand"].format(self.owner))
             except sr.RequestError:
-                if self.listen:
+                if self.modes["listen"]:
                     self.speak(self.responseData["error_request_fail"].format(self.owner))
 
-        if self.listen:
+        if self.modes["listen"]:
             self.response(voice)
